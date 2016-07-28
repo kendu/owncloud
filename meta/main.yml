@@ -1,0 +1,5 @@
+---
+# Nginx role dependencies
+dependencies:
+  - role: nginx
+  - role: postgresql

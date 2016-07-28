@@ -1,0 +1,41 @@
+---
+
+- name: Configure storage directory
+  file:
+    path: "{{ owncloud_storage_path }}"
+    state: directory
+    mode: 750
+    owner: www-data
+    group: www-data
+
+- name: Configure base directory
+  file:
+    path: "{{ owncloud_base_path }}"
+    state: directory
+    mode: 750
+    owner: www-data
+    group: www-data
+
+- name: Get package
+  get_url:
+    url: "{{ owncloud_url }}"
+    dest: "{{ owncloud_package }}"
+    validate_certs: False
+
+- name: Extract files
+  unarchive:
+    copy: no
+    creates: "{{ owncloud_base_path }}"
+    group: "{{ owncloud_owner }}"
+    owner: "{{ owncloud_owner }}"
+    src: "{{ owncloud_package }}"
+    dest: "{{ owncloud_base_path }}"
+
+- name: Configure nginx
+  template:
+    src: owncloud_nginx_config
+    dest: /etc/nginx/sites-enabled/owncloud.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Reload nginx

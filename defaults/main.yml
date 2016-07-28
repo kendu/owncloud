@@ -1,0 +1,11 @@
+---
+
+owncloud_version: 8.2.1
+owncloud_storage_path: /media/owncloud
+owncloud_base_path: /opt/owncloud
+owncloud_url: "https://download.owncloud.org/community/owncloud-{{ owncloud_version }}.tar.bz2"
+owncloud_package: "{{ owncloud_base_path }}/owncloud.tar.bz2"
+owncloud_owner: "www-data"
+owncloud_ssl_cert: "/opt/certs/owncloud.crt"
+owncloud_ssl_key: "/opt/certs/owncloud.key"
+owncloud_domain: "owncloud.example.com"
